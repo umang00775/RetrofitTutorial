@@ -7,12 +7,13 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
+import retrofit2.http.Url;
 
 public interface JsonPlaceholderApi {
 
     @GET("posts")
     Call<List<Post>> getPosts();
 
-    @GET("comments")
-    Call<List<Comment>> getComments(@QueryMap Map<String, Integer> parameters);
+    @GET
+    Call<List<Comment>> getComments(@Url String url);
 }

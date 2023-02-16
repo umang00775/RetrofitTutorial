@@ -42,10 +42,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getComments(){
-        Map<String, Integer> parameters = new HashMap<>();
-        parameters.put("postId", 3);
 
-        Call<List<Comment>> call = jsonPlaceholderApi.getComments(parameters);
+        Call<List<Comment>> call = jsonPlaceholderApi.getComments("posts/1/comments");
 
         call.enqueue(new Callback<List<Comment>>() {
             @Override
