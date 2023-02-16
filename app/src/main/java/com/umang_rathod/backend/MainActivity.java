@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getComments(){
-        Call<List<Comment>> call = jsonPlaceholderApi.getComments();
+        Call<List<Comment>> call = jsonPlaceholderApi.getComments(3);
 
         call.enqueue(new Callback<List<Comment>>() {
             @Override

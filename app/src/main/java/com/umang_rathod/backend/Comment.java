@@ -3,7 +3,7 @@ package com.umang_rathod.backend;
 import com.google.gson.annotations.SerializedName;
 
 public class Comment {
-    private int PostId;
+    private int postId;
     private int id;
     private String name;
     private String email;
@@ -12,7 +12,7 @@ public class Comment {
     private String comment;
 
     public int getPostId() {
-        return PostId;
+        return postId;
     }
 
     public int getId() {
