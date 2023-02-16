@@ -12,5 +12,5 @@ public interface JsonPlaceholderApi {
     Call<List<Post>> getPosts();
 
     @GET("comments")
-    Call<List<Comment>> getComments(@Query("postId") int postID);
+    Call<List<Comment>> getComments(@Query("postId") int postID, @Query("postId") int postId2);
 }
