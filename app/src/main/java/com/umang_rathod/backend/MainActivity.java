@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     final String BASE_URL = "https://jsonplaceholder.typicode.com/";
     private TextView textview;
+    JsonPlaceholderApi jsonPlaceholderApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,37 +33,37 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
 
-        JsonPlaceholderApi jsonPlaceholderApi = retrofit.create(JsonPlaceholderApi.class);
+        jsonPlaceholderApi = retrofit.create(JsonPlaceholderApi.class);
 
-        Call<List<Post>> call = jsonPlaceholderApi.getPosts();
+        getComments();
 
-        call.enqueue(new Callback<List<Post>>() {
+    }
+
+    private void getComments(){
+        Call<List<Comment>> call = jsonPlaceholderApi.getComments();
+
+        call.enqueue(new Callback<List<Comment>>() {
             @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                if (!response.isSuccessful()){
-                    textview.setText("Response code: " + response.code());
+            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+                if(!response.isSuccessful()){
+                    textview.setText("Response Code: " + response.code());
                     return;
                 }
-
-                List<Post> dataReceived = response.body();
-
-                for (Post post: dataReceived){
-                    String dataToShow = "";
-                    dataToShow = "User Id: " + post.getUserId() +
-                            "\nId: " + post.getId() +
-                            "\nTitle: " + post.getTitle() +
-                            "\nText: " + post.getText() + "\n\n";
-                    textview.append(dataToShow);
+                List<Comment> receivedData = response.body();
+                for(Comment comment: receivedData){
+                    String data = "Post ID: " + comment.getPostId() +
+                            "\nID: " + comment.getId() +
+                            "\nName: " + comment.getName() +
+                            "\nEmail: " + comment.getEmail() +
+                            "\nComment: " + comment.getComment() + "\n\n";
+                    textview.append(data);
                 }
-
             }
 
             @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
+            public void onFailure(Call<List<Comment>> call, Throwable t) {
                 textview.setText(t.toString());
             }
         });
-
-
     }
 }
