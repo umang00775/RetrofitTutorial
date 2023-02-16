@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,7 +42,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getComments(){
-        Call<List<Comment>> call = jsonPlaceholderApi.getComments(1,2);
+        Map<String, Integer> parameters = new HashMap<>();
+        parameters.put("postId", 3);
+
+        Call<List<Comment>> call = jsonPlaceholderApi.getComments(parameters);
 
         call.enqueue(new Callback<List<Comment>>() {
             @Override
